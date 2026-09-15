@@ -1,0 +1,21 @@
+6.1
+estabelecer a conexão com o banco, configurar o tratamento de erros, utilizar prepared statements, inserir registros, consultar dados e transformar os resultados do banco em arrays associativos que possam ser processados pelo PHP.
+
+6.2
+Representa o endereço e configuração da conexão com o banco de dados.
+
+6.3
+Foi colocado em uma variável para facilitar a alteração.
+
+6.4
+prepare() prepara a consulta
+execute() executar a consulta com os valores informados
+
+6.5
+porque tornam o código mais segura contra sql injection, deixa mais organizado e permite reutilizar consultas preparadas de forma eficiente.
+
+6.7
+com que os resultados da consulta sejam retornados como arrays associativos, permitindo acessar os valores pelos nomes das colunas
+
+6.8
+mantê-la no PHP torna a regra mais fácil de alterar e reutilizar.
