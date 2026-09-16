@@ -72,3 +72,15 @@ footer{
     background: black;
     color: white;
 }
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    padding: 0;
+}
