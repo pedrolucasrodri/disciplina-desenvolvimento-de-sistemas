@@ -1,0 +1,136 @@
+@media (max-width: 768px) {
+
+    .menu-btn {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        width: 200px;
+        background: black;
+        padding: 20px;
+    }
+
+    nav.ativo {
+        display: flex;
+    }
+
+    nav a {
+        padding: 10px 0;
+    }
+}
+
+
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #302c2c;
+}
+
+.topo {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 20px 8%; 
+    background: #000000;
+    color: white;
+}
+
+
+nav a {
+    color: white;
+    text-decoration: none;
+
+}
+
+.destaque {
+    width: 90%;
+    max-width: 1400px;
+    margin: 40px auto;
+}
+
+.destaque img {
+    width: 450px;
+    max-width: 180%;
+    border-radius: 12px;
+}
+
+
+.cards {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    flex: 1; 
+    padding: 25px;
+    background: black;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(2, 1, 1, 0.884);
+    color: white;
+}
+
+.corpo {
+    flex: 1; 
+    padding: 30px;
+    background: #18c7c78a;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(2, 1, 1, 0.603);
+    margin-bottom: 7vw;
+}
+
+
+footer{
+    margin-top: 40px;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    text-align: center;
+    background: black;
+    color: white;
+}
+
+.cartoes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    text-align: center;
+}
+
+.cartao {
+    flex: 1; 
+    background: black;
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 3px 12px rgba(2, 1, 1, 0.884);
+
+}
+
+.cartao:last-child {
+    grid-column: 1 / 3;
+    width: 600px;
+    justify-self: center;
+}
+
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+
