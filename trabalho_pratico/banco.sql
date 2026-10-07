@@ -1,0 +1,12 @@
+CREATE DATABASE IF NOT EXISTS lojaVille
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE lojaVille;
+
+CREATE TABLE IF NOT EXISTS estoque (
+    cod_produto VARCHAR(10) PRIMARY KEY NOT NULL,
+    desc_produto VARCHAR(100) NOT NULL,
+	qtd INT NOT NULL,
+    dt_entrada TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

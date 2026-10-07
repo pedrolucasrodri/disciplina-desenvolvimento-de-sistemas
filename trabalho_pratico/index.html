@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Gestão de Estoque</title>
+</head>
+
+<body>
+
+<main>
+
+    <h1>Gestão de Estoque</h1>
+
+    <section>
+        <h2>Cadastro de Produto</h2>
+        <form action="salvar_produto.php" method="POST">
+            <label>Código do Produto</label>
+            <input name="cod_produto" type="text" required>
+
+            <label>Descrição do Produto</label>
+            <input name="desc_produto" type="text" required>
+
+            <button type="submit">
+                Cadastrar Produto
+            </button>
+        </form>
+        </form>
+    </section>
+
+    <section>
+        <h2>Movimentação</h2>
+        <form action="salvar_movimentacao.php" method="POST">
+            <label>Código do Produto</label>
+            <input name="cod_produto" type="text" required>
+
+            <label>Tipo</label>
+            <select name="tipo" required>
+                <option value="E">Entrada</option>
+                <option value="S">Saída</option>
+            </select>
+
+            <label>Quantidade</label>
+            <input name="quantidade" type="number" min="1" required>
+
+            <button type="submit">
+                Registrar Movimentação
+            </button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Consultas</h2>
+    
+        <form action="consultar_movimentacao.php" methodmit>
+            <button type="submit">
+                Consultar Movimentações
+            </button>
+        </form>
+        <br>
+    
+        <form action="consultar_estoque.php" methodmit>
+            <button type="submit">
+                Consultar Estoque
+            </button>
+        </form>
+    
+    </section>
+</main>
+
+</body>
+</html>
