@@ -1,42 +1,36 @@
 <?php
-
 require "conexao.php";
 
-$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+$cod_produto = trim(filter_input(INPUT_GET, "cod_produto") ?? "");
 
-if (!$id) {
-    exit("ID inválido");
+if ($cod_produto === "") {
+    exit("Produto não informado.");
+}  {
+    $sql = "SELECT qtd
+            FROM estoque
+            WHERE cod_produto = :cod_produto";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt -> execute(["cod_produto" => $cod_produto]);
+
+$estoque = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+if($estoque && $estoque["qtd"] > 0) {
+    exit("Não é possivel excluir. Exitem {$estoque['qtd']} unidades em estoque.");
+        }
+
+    $sql = "DELETE FROM cadastro_produto
+        WHERE cod_produto = :cod_produto";
+
+        $stmt = $pdo -> prepare($sql);
+        $stmt -> execute(["cod_produto" => $cod_produto]);
 }
 
-$sql = "DELETE FROM alunos
-        WHERE id = :id";
-
-$stmt = $pdo->prepare($sql);
-
-$stmt->execute([
-    "id" => $id
-]);
-
-if ($stmt->rowCount() > 0) {
-    echo "Aluno excluído com sucesso!";
+if ($stmt -> rowCount() > 0) {
+    echo("Cadastro excluido com sucesso.");
 } else {
-    echo "Nenhum aluno encontrado.";
+    echo("Nenhum cadastro encontrado");
 }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <main>
-        <table>
-            <p><a class="botao" href="index.html">Voltar</a></p>
-        </table>
-    </main>
-</body>
-</html>
