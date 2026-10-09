@@ -5,11 +5,15 @@ require "conexao.php";
 if ($_SERVER["REQUEST_METHOD"] !== "POST"){
     exit("Método inválido");
 }
+
 $cod_produto  = trim($_POST["cod_produto"] ?? "");
+
 if (strlen($cod_produto) > 10) {
     exit("O código do produto deve possuir no máximo 10 caracteres.");
 }
+
 $desc_produto = trim($_POST["desc_produto"] ?? "");
+
 if (strlen($desc_produto) > 101) {
     exit("O código do produto deve possuir no máximo 10 caracteres.");
 }

@@ -2,6 +2,7 @@
 require "conexao.php";
 
 $cod_produto = trim($_GET["cod_produto"] ?? "");
+
 if (strlen($cod_produto) > 10) {
     exit("O código do produto deve possuir no máximo 10 caracteres.");
 }

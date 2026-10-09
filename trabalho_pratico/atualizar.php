@@ -6,11 +6,14 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST"){
 }
 
 $cod_produto = trim(filter_input(INPUT_POST, "cod_produto")?? "");
+
 if (strlen($cod_produto) > 10) {
     exit("O código do produto deve possuir no máximo 10 caracteres.");
 }
+
 $desc_produto = trim(filter_input(INPUT_POST, "desc_produto")??"");
 $cod_original = trim($_POST["cod_original"] ?? "");
+
 if (strlen($desc_produto) > 101) {
     exit("O código do produto deve possuir no máximo 10 caracteres.");
 }
