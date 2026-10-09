@@ -27,5 +27,52 @@ CREATE TABLE IF NOT EXISTS estoque (
     FOREIGN KEY (cod_produto) REFERENCES produto(cod_produto)
 );
 
-select *
-from lojaville.cadastro_produto
+INSERT INTO cadastro_produto
+(cod_produto, desc_produto)
+VALUES
+('BAT0123', 'Bateria 12V 60Ah');
+
+INSERT INTO cadastro_produto
+(cod_produto, desc_produto)
+VALUES
+('PNE0456', 'Pneu Aro 15');
+
+INSERT INTO cadastro_produto
+(cod_produto, desc_produto)
+VALUES
+('OLE0789', 'Óleo Lubrificante 5W30');
+
+INSERT INTO cadastro_produto
+(cod_produto, desc_produto)
+VALUES
+('FLT0101', 'Filtro de Óleo');
+
+INSERT INTO cadastro_produto
+(cod_produto, desc_produto)
+VALUES
+('VEL0202', 'Jogo de Velas');
+
+INSERT INTO cadastro_produto
+(cod_produto, desc_produto)
+VALUES
+('AMP0303', 'Amortecedor Dianteiro');
+
+INSERT INTO cadastro_produto
+(cod_produto, desc_produto)
+VALUES
+('DIS0404', 'Disco de Freio');
+
+INSERT INTO cadastro_produto
+(cod_produto, desc_produto)
+VALUES
+('PAS0505', 'Pastilha de Freio');
+
+INSERT INTO cadastro_produto
+(cod_produto, desc_produto)
+VALUES
+('COR0606', 'Correia Dentada');
+
+INSERT INTO cadastro_produto
+(cod_produto, desc_produto)
+VALUES
+('LMP0707', 'Lâmpada H4 60/55W');

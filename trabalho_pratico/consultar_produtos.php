@@ -4,7 +4,9 @@ require "conexao.php";
 
 
 $cod_produto = trim(filter_input(INPUT_GET, "cod_produto")?? "");
-
+if (strlen($cod_produto) > 10) {
+    exit("O código do produto deve possuir no máximo 10 caracteres.");
+}
 
 if ($cod_produto !== "") {
 
@@ -62,7 +64,7 @@ if ($cod_produto !== "") {
                 <tr>
                     <th>Código</th>
                     <th>Descrição</th>
-                    <th>Data</th>
+                    <th>Data De Cadastro </th>
                     <th>Açoes</th>
                 </tr>
             </thead>

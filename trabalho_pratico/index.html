@@ -18,10 +18,10 @@
         <h2>Cadastro de Produto</h2>
         <form action="salvar_produto.php" method="POST">
             <label>Código do Produto</label>
-            <input name="cod_produto" type="text" required>
+            <input name="cod_produto" type="text" required maxlength="10">
 
             <label>Descrição do Produto</label>
-            <input name="desc_produto" type="text" required>
+            <input name="desc_produto" type="text" required maxlength="100">
 
             <button type="submit">
                 Cadastrar Produto
@@ -34,7 +34,7 @@
         <h2>Movimentação</h2>
         <form action="salvar_movimentacao.php" method="POST">
             <label>Código do Produto</label>
-            <input name="cod_produto" type="text" required>
+            <input name="cod_produto" type="text" required maxlength="10">
 
             <label>Tipo</label>
             <select name="tipo" required>
@@ -70,7 +70,7 @@
 
         <form action="consultar_produtos.php" method="GET">
             <label>Código do Produto (Opcional)</label><br>
-            <input name="cod_produto" type="text"><br>
+            <input name="cod_produto" type="text" maxlength="10"><br>
             <br>
             <button type="submit">
                 Consultar Produtos

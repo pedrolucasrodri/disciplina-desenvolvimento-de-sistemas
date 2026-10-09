@@ -7,22 +7,37 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 }
 
 $cod_produto = trim($_POST["cod_produto"] ?? "");
+if (strlen($cod_produto) > 10) {
+    exit("O código do produto deve possuir no máximo 10 caracteres.");
+}
 $tipo = trim($_POST["tipo"] ?? "");
-$quantidade = filter_input(
-    INPUT_POST,
-    "quantidade",
-    FILTER_VALIDATE_INT
-);
 
-if (
-    $cod_produto === "" ||
-    !$quantidade ||
-    !in_array($tipo, ["E", "S"])
+$quantidade = filter_input(INPUT_POST, "quantidade",FILTER_VALIDATE_INT);
+
+if ($cod_produto === "" || !$quantidade || !in_array($tipo, ["E", "S"])
 ) {
     exit("Dados inválidos.");
 }
 
-/* registra a movimentação */
+// Verificação se produto existe na tabela produtos
+$sql = "SELECT 
+            cod_produto
+        FROM cadastro_produto
+        WHERE cod_produto = :cod_produto";
+
+$stmt = $pdo->prepare($sql);
+
+$stmt -> execute([
+    "cod_produto" => $cod_produto
+]);
+
+$produto = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+if (!$produto) {
+    exit("Produto não cadastrado.");
+}
+
+// Registra movimentação.
 
 $sql = "INSERT INTO movimentacao
         (cod_produto, tipo, quantidade)
@@ -37,7 +52,7 @@ $stmt->execute([
     "quantidade" => $quantidade
 ]);
 
-/* verifica se já existe no estoque */
+// Verificação se já tem saldo para o produto.
 
 $sql = "SELECT qtd
         FROM estoque
@@ -51,8 +66,9 @@ $stmt->execute([
 
 $estoque = $stmt->fetch();
 
-/* primeira movimentação */
+/*--------movimentação de estoque--------*/ 
 
+// Produto sem saldo
 if (!$estoque) {
 
     if ($tipo === "S") {
@@ -71,8 +87,9 @@ if (!$estoque) {
         "quantidade" => $quantidade
     ]);
 
+// Produto possui saldo
 } else {
-
+    // Guarda o saldo atual
     $saldoAtual = $estoque["qtd"];
 
     if ($tipo === "E") {
@@ -82,7 +99,7 @@ if (!$estoque) {
                 WHERE cod_produto = :cod_produto";
 
     } else {
-
+        // saida de estoque
         if ($quantidade > $saldoAtual) {
             exit("Estoque insuficiente.");
         }
