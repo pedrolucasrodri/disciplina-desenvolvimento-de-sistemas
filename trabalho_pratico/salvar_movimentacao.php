@@ -47,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
         } else {
 
-            // Verifica se o produto está cadastrado
             $sql = "SELECT cod_produto
                     FROM cadastro_produto
                     WHERE cod_produto = :cod_produto";
@@ -72,7 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
                     // e o histórico consistentes.
                     $pdo->beginTransaction();
 
-                    // CONSULTA CORRETA DO ESTOQUE
                     $sql = "SELECT qtd
                             FROM estoque
                             WHERE cod_produto = :cod_produto

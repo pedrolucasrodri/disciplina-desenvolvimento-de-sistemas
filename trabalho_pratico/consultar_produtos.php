@@ -2,15 +2,12 @@
 
 require "conexao.php";
 
-// Inicializa as variáveis
 $cod_produto = "";
 $erro = null;
 $estoque = [];
 
-// Recebe o código pesquisado
 $valorCodProduto = $_GET["cod_produto"] ?? "";
 
-// Valida a pesquisa
 if (!is_string($valorCodProduto)) {
 
     $erro = "O código do produto informado é inválido.";
@@ -25,7 +22,6 @@ if (!is_string($valorCodProduto)) {
 
     } else {
 
-        // Consulta com filtro, se o código foi informado
         if ($cod_produto !== "") {
 
             $sql = "SELECT
@@ -44,7 +40,6 @@ if (!is_string($valorCodProduto)) {
 
         } else {
 
-            // Lista todos os produtos
             $sql = "SELECT
                         cod_produto,
                         desc_produto,

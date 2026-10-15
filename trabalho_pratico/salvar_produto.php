@@ -39,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
             try {
 
-                // Verifica se o código ou a descrição já existem
                 $sql = "SELECT COUNT(*)
                         FROM cadastro_produto
                         WHERE cod_produto = :cod_produto
@@ -58,7 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
                 } else {
 
-                    // Insere o novo produto
                     $sql = "INSERT INTO cadastro_produto
                                 (cod_produto, desc_produto)
                             VALUES

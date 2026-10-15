@@ -6,10 +6,8 @@ $erro = null;
 $produto = null;
 $cod_produto = "";
 
-// Recebe o código do produto pela URL
 $valorCodProduto = $_GET["cod_produto"] ?? "";
 
-// Valida o código recebido
 if (!is_string($valorCodProduto)) {
 
     $erro = "O código do produto informado é inválido.";
@@ -28,7 +26,6 @@ if (!is_string($valorCodProduto)) {
 
     } else {
 
-        // Busca os dados do produto
         $sql = "SELECT
                     cod_produto,
                     desc_produto
