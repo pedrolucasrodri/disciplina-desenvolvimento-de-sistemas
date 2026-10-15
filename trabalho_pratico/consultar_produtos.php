@@ -1,40 +1,64 @@
+```php
 <?php
 
 require "conexao.php";
 
+// Inicializa as variáveis
+$cod_produto = "";
+$erro = null;
+$estoque = [];
 
-$cod_produto = trim(filter_input(INPUT_GET, "cod_produto")?? "");
+// Recebe o código pesquisado
+$valorCodProduto = $_GET["cod_produto"] ?? "";
 
-if (strlen($cod_produto) > 10) {
-    exit("O código do produto deve possuir no máximo 10 caracteres.");
+// Valida a pesquisa
+if (!is_string($valorCodProduto)) {
+
+    $erro = "O código do produto informado é inválido.";
+
+} else {
+
+    $cod_produto = trim($valorCodProduto);
+
+    if (strlen($cod_produto) > 10) {
+
+        $erro = "O código do produto deve possuir no máximo 10 caracteres.";
+
+    } else {
+
+        // Consulta com filtro, se o código foi informado
+        if ($cod_produto !== "") {
+
+            $sql = "SELECT
+                        cod_produto,
+                        desc_produto,
+                        dt_cadastro
+                    FROM cadastro_produto
+                    WHERE cod_produto LIKE :cod_produto
+                    ORDER BY cod_produto";
+
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->execute([
+                "cod_produto" => "%{$cod_produto}%"
+            ]);
+
+        } else {
+
+            // Lista todos os produtos
+            $sql = "SELECT
+                        cod_produto,
+                        desc_produto,
+                        dt_cadastro
+                    FROM cadastro_produto
+                    ORDER BY cod_produto";
+
+            $stmt = $pdo->query($sql);
+        }
+
+        $estoque = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
-
-if ($cod_produto !== "") {
-
-    $sql = "SELECT 
-                cod_produto,
-                desc_produto,
-                dt_cadastro
-            FROM cadastro_produto
-            WHERE cod_produto LIKE :cod_produto
-            ORDER BY cod_produto";
-    
-    $stmt = $pdo -> prepare($sql);
-    $stmt->execute(["cod_produto" => "%{$cod_produto}%"
-]);
-
-}else{
-
-    $sql = "SELECT 
-                cod_produto,
-                desc_produto,
-                dt_cadastro
-            FROM cadastro_produto
-            ORDER BY cod_produto"; 
-    $stmt = $pdo -> query($sql);
-
-}
-    $estoque = $stmt->fetchAll();
 
 ?>
 
@@ -43,69 +67,174 @@ if ($cod_produto !== "") {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Consulta de Produtos</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<main>
+    <div class="app-container">
 
-    <h1>Produtos</h1>
+        <header>
+            <h1>Produtos</h1>
+        </header>
 
-    <?php if (!$estoque): ?>
+        <main class="historico-main">
 
-        <p>Nenhum produto encontrado.</p>
+            <section class="Cadastro historico-card">
 
-    <?php else: ?>
+                <h2>Produtos cadastrados</h2>
 
-        <table border="1">
+                <!-- PESQUISA -->
+                <form method="GET" action="" class="busca-produtos">
 
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Descrição</th>
-                    <th>Data De Cadastro </th>
-                    <th>Açoes</th>
-                </tr>
-            </thead>
+                    <div class="campo-busca">
 
-            <tbody>
+                        <label for="cod_produto">
+                            Buscar pelo código do produto
+                        </label>
 
-                <?php foreach ($estoque as $produto): ?>
+                        <input
+                            type="text"
+                            id="cod_produto"
+                            name="cod_produto"
+                            maxlength="10"
+                            placeholder="Digite o código..."
+                            value="<?= htmlspecialchars(
+                                $cod_produto,
+                                ENT_QUOTES,
+                                "UTF-8"
+                            ) ?>"
+                        >
 
-                    <tr>
-                        <td><?= htmlspecialchars($produto["cod_produto"]) ?></td>
-                        <td><?= htmlspecialchars($produto["desc_produto"]) ?></td>
-                        <td><?= htmlspecialchars($produto["dt_cadastro"]) ?></td>
+                    </div>
 
-                         <td>
-                                <a 
-                                    href="editar.php?cod_produto=<?= urlencode ($produto['cod_produto']) ?>">
-                                    Editar
-                                </a>
-                                |
-                                <a
-                                    href="deletar.php?cod_produto=<?= urlencode($produto['cod_produto']) ?>" onclick="return confirm('Deseja excluir este produto?')">
-                                    Excluir
-                                </a>
-                            </td>
+                    <button type="submit">
+                        Buscar
+                    </button>
 
-                    </tr>
+                    <a href="consultar_produtos.php"
+                       class="acao-link acao-limpar">
+                        Limpar
+                    </a>
 
-                <?php endforeach; ?>
+                </form>
 
-            </tbody>
+                <!-- RESULTADOS -->
+                <?php if ($erro !== null): ?>
 
-        </table>
+                    <p class="mensagem-erro">
+                        <?= htmlspecialchars(
+                            $erro,
+                            ENT_QUOTES,
+                            "UTF-8"
+                        ) ?>
+                    </p>
 
-    <?php endif; ?>
+                <?php elseif (empty($estoque)): ?>
 
-    <p>
-        <a href="index.html">Voltar</a>
-    </p>
+                    <p class="mensagem-vazia">
+                        Nenhum produto encontrado.
+                    </p>
 
-</main>
+                <?php else: ?>
+
+                    <div class="tabela-wrapper">
+
+                        <table class="tabela-movimentacoes tabela-produtos">
+
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Descrição</th>
+                                    <th>Data de cadastro</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <?php foreach ($estoque as $produto): ?>
+
+                                    <tr>
+
+                                        <td>
+                                            <?= htmlspecialchars(
+                                                (string) $produto["cod_produto"],
+                                                ENT_QUOTES,
+                                                "UTF-8"
+                                            ) ?>
+                                        </td>
+
+                                        <td>
+                                            <?= htmlspecialchars(
+                                                (string) $produto["desc_produto"],
+                                                ENT_QUOTES,
+                                                "UTF-8"
+                                            ) ?>
+                                        </td>
+
+                                        <td>
+                                            <?= htmlspecialchars(
+                                                (string) $produto["dt_cadastro"],
+                                                ENT_QUOTES,
+                                                "UTF-8"
+                                            ) ?>
+                                        </td>
+
+                                        <td>
+                                            <div class="acoes-produto">
+
+                                                <a
+                                                    href="editar.php?cod_produto=<?= urlencode(
+                                                        (string) $produto["cod_produto"]
+                                                    ) ?>"
+                                                    class="acao-link acao-editar">
+                                                    Editar
+                                                </a>
+
+                                                <a
+                                                    href="deletar.php?cod_produto=<?= urlencode(
+                                                        (string) $produto["cod_produto"]
+                                                    ) ?>"
+                                                    class="acao-link acao-excluir"
+                                                    onclick="return confirm('Deseja excluir este produto?')">
+                                                    Excluir
+                                                </a>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+
+                                <?php endforeach; ?>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                <?php endif; ?>
+
+                <!-- VOLTAR -->
+                <div class="historico-acoes">
+
+                    <a href="index.html" class="botao-voltar">
+                        ← Voltar ao início
+                    </a>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
 
 </body>
 </html>
+```

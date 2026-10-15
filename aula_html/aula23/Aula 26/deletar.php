@@ -16,7 +16,8 @@ if (!$id) {
 $sql = "DELETE FROM alunos
         WHERE id = :id";
 
-$stmt = $pdo -> prepare($sql);
+$stmt = $pdo -> 
+prepare($sql);
 $stmt->execute([
     "id" => $id
 ]);

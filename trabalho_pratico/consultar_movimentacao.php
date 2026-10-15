@@ -15,8 +15,8 @@ $sql = "SELECT
         ORDER BY m.data_movimento DESC";
 
 $stmt = $pdo->query($sql);
+$movimentacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$movimentacoes = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -24,70 +24,117 @@ $movimentacoes = $stmt->fetchAll();
 
 <head>
     <meta charset="UTF-8">
-    <title>Movimentações</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Movimentações</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<main>
+    <div class="app-container">
 
-    <h1>Histórico de Movimentações</h1>
+        <header>
+            <h1>Histórico de Movimentações</h1>
+        </header>
 
-    <?php if (!$movimentacoes): ?>
+        <main class="historico-main">
 
-        <p>Nenhuma movimentação encontrada.</p>
+            <section class="Cadastro historico-card">
 
-    <?php else: ?>
+                <h2>Movimentações registradas</h2>
 
-        <table border="1">
+                <?php if (empty($movimentacoes)): ?>
 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Código</th>
-                    <th>Descrição</th>
-                    <th>Tipo</th>
-                    <th>Quantidade</th>
-                    <th>Data</th>
-                </tr>
-            </thead>
+                    <p class="mensagem-vazia">
+                        Nenhuma movimentação encontrada.
+                    </p>
 
-            <tbody>
+                <?php else: ?>
 
-                <?php foreach ($movimentacoes as $mov): ?>
+                    <div class="tabela-wrapper">
 
-                    <tr>
+                        <table class="tabela-movimentacoes">
 
-                        <td><?= htmlspecialchars($mov["id"]) ?></td>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Código</th>
+                                    <th>Descrição</th>
+                                    <th>Tipo</th>
+                                    <th>Quantidade</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
 
-                        <td><?= htmlspecialchars($mov["cod_produto"]) ?></td>
+                            <tbody>
 
-                        <td><?= htmlspecialchars($mov["desc_produto"]) ?></td>
+                                <?php foreach ($movimentacoes as $mov): ?>
 
-                        <td>
-                            <?= $mov["tipo"] === "E" ? "Entrada" : "Saída" ?>
-                        </td>
+                                    <tr>
 
-                        <td><?= htmlspecialchars($mov["quantidade"]) ?></td>
+                                        <td>
+                                            <?= htmlspecialchars((string) $mov["id"], ENT_QUOTES, "UTF-8") ?>
+                                        </td>
 
-                        <td><?= htmlspecialchars($mov["data_movimento"]) ?></td>
+                                        <td>
+                                            <?= htmlspecialchars((string) $mov["cod_produto"], ENT_QUOTES, "UTF-8") ?>
+                                        </td>
 
-                    </tr>
+                                        <td>
+                                            <?= htmlspecialchars((string) $mov["desc_produto"], ENT_QUOTES, "UTF-8") ?>
+                                        </td>
 
-                <?php endforeach; ?>
+                                        <td>
+                                            <?php
+                                            if ($mov["tipo"] === "E") {
+                                                $tipoTexto = "Entrada";
+                                                $tipoClasse = "entrada";
+                                            } elseif ($mov["tipo"] === "S") {
+                                                $tipoTexto = "Saída";
+                                                $tipoClasse = "saida";
+                                            } else {
+                                                $tipoTexto = "Outro";
+                                                $tipoClasse = "";
+                                            }
+                                            ?>
 
-            </tbody>
+                                            <span class="tipo-movimentacao <?= $tipoClasse ?>">
+                                                <?= $tipoTexto ?>
+                                            </span>
+                                        </td>
 
-        </table>
+                                        <td>
+                                            <?= htmlspecialchars((string) $mov["quantidade"], ENT_QUOTES, "UTF-8") ?>
+                                        </td>
 
-    <?php endif; ?>
+                                        <td>
+                                            <?= htmlspecialchars((string) $mov["data_movimento"], ENT_QUOTES, "UTF-8") ?>
+                                        </td>
 
-    <p>
-        <a href="index.html">Voltar</a>
-    </p>
+                                    </tr>
 
-</main>
+                                <?php endforeach; ?>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                <?php endif; ?>
+
+                <div class="historico-acoes">
+                    <a href="index.html" class="botao-voltar">
+                        ← Voltar ao início
+                    </a>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
 
 </body>
+
 </html>

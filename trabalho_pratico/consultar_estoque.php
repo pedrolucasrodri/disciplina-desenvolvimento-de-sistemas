@@ -13,7 +13,8 @@ $sql = "SELECT
 
 $stmt = $pdo->query($sql);
 
-$estoque = $stmt->fetchAll();
+$estoque = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -21,55 +22,106 @@ $estoque = $stmt->fetchAll();
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta de Estoque</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<main>
+    <div class="app-container">
 
-    <h1>Estoque Atual</h1>
+        <!-- CABEÇALHO -->
+        <header>
+            <h1>Estoque Atual</h1>
+        </header>
 
-    <?php if (!$estoque): ?>
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="historico-main">
 
-        <p>Nenhum produto encontrado.</p>
+            <section class="Cadastro historico-card">
 
-    <?php else: ?>
+                <h2>Produtos em estoque</h2>
 
-        <table border="1">
+                <?php if (empty($estoque)): ?>
 
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Descrição</th>
-                    <th>Quantidade</th>
-                </tr>
-            </thead>
+                    <p class="mensagem-vazia">
+                        Nenhum produto encontrado no estoque.
+                    </p>
 
-            <tbody>
+                <?php else: ?>
 
-                <?php foreach ($estoque as $produto): ?>
+                    <!-- ÁREA DA TABELA -->
+                    <div class="tabela-wrapper">
 
-                    <tr>
-                        <td><?= htmlspecialchars($produto["cod_produto"]) ?></td>
-                        <td><?= htmlspecialchars($produto["desc_produto"]) ?></td>
-                        <td><?= htmlspecialchars($produto["qtd"]) ?></td>
-                    </tr>
+                        <table class="tabela-movimentacoes">
 
-                <?php endforeach; ?>
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Descrição</th>
+                                    <th>Quantidade</th>
+                                </tr>
+                            </thead>
 
-            </tbody>
+                            <tbody>
 
-        </table>
+                                <?php foreach ($estoque as $produto): ?>
 
-    <?php endif; ?>
+                                    <tr>
 
-    <p>
-        <a href="index.html">Voltar</a>
-    </p>
+                                        <td>
+                                            <?= htmlspecialchars(
+                                                (string) $produto["cod_produto"],
+                                                ENT_QUOTES,
+                                                "UTF-8"
+                                            ) ?>
+                                        </td>
 
-</main>
+                                        <td>
+                                            <?= htmlspecialchars(
+                                                (string) $produto["desc_produto"],
+                                                ENT_QUOTES,
+                                                "UTF-8"
+                                            ) ?>
+                                        </td>
+
+                                        <td>
+                                            <?= htmlspecialchars(
+                                                (string) $produto["qtd"],
+                                                ENT_QUOTES,
+                                                "UTF-8"
+                                            ) ?>
+                                        </td>
+
+                                    </tr>
+
+                                <?php endforeach; ?>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                <?php endif; ?>
+
+                <!-- BOTÃO VOLTAR -->
+                <div class="historico-acoes">
+
+                    <a href="index.html" class="botao-voltar">
+                        ← Voltar ao início
+                    </a>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
 
 </body>
+
 </html>

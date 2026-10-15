@@ -17,14 +17,14 @@ CREATE TABLE IF NOT EXISTS movimentacao (
     quantidade INT NOT NULL,
     data_movimento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (cod_produto) REFERENCES produto(cod_produto)
+    FOREIGN KEY (cod_produto) REFERENCES cadastro_produto (cod_produto)
 );
 
 CREATE TABLE IF NOT EXISTS estoque (
     cod_produto VARCHAR(10) PRIMARY KEY,
     qtd INT NOT NULL DEFAULT 0,
 
-    FOREIGN KEY (cod_produto) REFERENCES produto(cod_produto)
+    FOREIGN KEY (cod_produto) REFERENCES cadastro_produto (cod_produto)
 );
 
 INSERT INTO cadastro_produto
