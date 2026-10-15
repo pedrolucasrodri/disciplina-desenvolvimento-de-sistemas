@@ -2,20 +2,56 @@
 
 require "conexao.php";
 
-$sql = "SELECT
-            m.id,
-            m.cod_produto,
-            p.desc_produto,
-            m.tipo,
-            m.quantidade,
-            m.data_movimento
-        FROM movimentacao m
-        INNER JOIN cadastro_produto p
-            ON m.cod_produto = p.cod_produto
-        ORDER BY m.data_movimento DESC";
+$cod_produto = "";
+$erro = null;
+$movimentacoes = [];
 
-$stmt = $pdo->query($sql);
-$movimentacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$valorCodProduto = $_GET["cod_produto"] ?? "";
+
+if (!is_string($valorCodProduto)) {
+
+    $erro = "O código do produto informado é inválido.";
+
+} else {
+
+    $cod_produto = trim($valorCodProduto);
+
+    if (strlen($cod_produto) > 10) {
+
+        $erro = "O código do produto deve possuir no máximo 10 caracteres.";
+
+    } else {
+
+        $sql = "SELECT
+                    m.id,
+                    m.cod_produto,
+                    p.desc_produto,
+                    m.tipo,
+                    m.quantidade,
+                    m.data_movimento
+                FROM movimentacao m
+                INNER JOIN cadastro_produto p
+                    ON m.cod_produto = p.cod_produto";
+
+        if ($cod_produto !== "") {
+            $sql .= " WHERE m.cod_produto LIKE :cod_produto";
+        }
+
+        $sql .= " ORDER BY m.data_movimento DESC";
+
+        $stmt = $pdo->prepare($sql);
+
+        if ($cod_produto !== "") {
+            $stmt->execute([
+                "cod_produto" => "%{$cod_produto}%"
+            ]);
+        } else {
+            $stmt->execute();
+        }
+
+        $movimentacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
 
 ?>
 
@@ -43,7 +79,51 @@ $movimentacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <h2>Movimentações registradas</h2>
 
-                <?php if (empty($movimentacoes)): ?>
+                <form method="GET" action="" class="busca-produtos">
+
+                    <div class="campo-busca">
+
+                        <label for="cod_produto">
+                            Buscar pelo código do produto
+                        </label>
+
+                        <input
+                            type="text"
+                            id="cod_produto"
+                            name="cod_produto"
+                            maxlength="10"
+                            placeholder="Digite o código..."
+                            value="<?= htmlspecialchars(
+                                $cod_produto,
+                                ENT_QUOTES,
+                                "UTF-8"
+                            ) ?>"
+                        >
+
+                    </div>
+
+                    <button type="submit">
+                        Buscar
+                    </button>
+
+                    <a href="consultar_movimentacao.php"
+                       class="acao-link acao-limpar">
+                        Limpar
+                    </a>
+
+                </form>
+
+                <?php if ($erro !== null): ?>
+
+                    <p class="mensagem-erro">
+                        <?= htmlspecialchars(
+                            $erro,
+                            ENT_QUOTES,
+                            "UTF-8"
+                        ) ?>
+                    </p>
+
+                <?php elseif (empty($movimentacoes)): ?>
 
                     <p class="mensagem-vazia">
                         Nenhuma movimentação encontrada.

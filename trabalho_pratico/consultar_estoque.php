@@ -2,18 +2,53 @@
 
 require "conexao.php";
 
-$sql = "SELECT
-            e.cod_produto,
-            p.desc_produto,
-            e.qtd
-        FROM estoque e
-        INNER JOIN cadastro_produto p
-            ON e.cod_produto = p.cod_produto
-        ORDER BY e.cod_produto";
+$cod_produto = "";
+$erro = null;
+$estoque = [];
 
-$stmt = $pdo->query($sql);
+$valorCodProduto = $_GET["cod_produto"] ?? "";
 
-$estoque = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if (!is_string($valorCodProduto)) {
+
+    $erro = "O código do produto informado é inválido.";
+
+} else {
+
+    $cod_produto = trim($valorCodProduto);
+
+    if (strlen($cod_produto) > 10) {
+
+        $erro = "O código do produto deve possuir no máximo 10 caracteres.";
+
+    } else {
+
+        $sql = "SELECT
+                    e.cod_produto,
+                    p.desc_produto,
+                    e.qtd
+                FROM estoque e
+                INNER JOIN cadastro_produto p
+                    ON e.cod_produto = p.cod_produto";
+
+        if ($cod_produto !== "") {
+            $sql .= " WHERE e.cod_produto LIKE :cod_produto";
+        }
+
+        $sql .= " ORDER BY e.cod_produto";
+
+        $stmt = $pdo->prepare($sql);
+
+        if ($cod_produto !== "") {
+            $stmt->execute([
+                "cod_produto" => "%{$cod_produto}%"
+            ]);
+        } else {
+            $stmt->execute();
+        }
+
+        $estoque = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
 
 ?>
 
@@ -44,7 +79,51 @@ $estoque = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <h2>Produtos em estoque</h2>
 
-                <?php if (empty($estoque)): ?>
+                <form method="GET" action="" class="busca-produtos">
+
+                    <div class="campo-busca">
+
+                        <label for="cod_produto">
+                            Buscar pelo código do produto
+                        </label>
+
+                        <input
+                            type="text"
+                            id="cod_produto"
+                            name="cod_produto"
+                            maxlength="10"
+                            placeholder="Digite o código..."
+                            value="<?= htmlspecialchars(
+                                $cod_produto,
+                                ENT_QUOTES,
+                                "UTF-8"
+                            ) ?>"
+                        >
+
+                    </div>
+
+                    <button type="submit">
+                        Buscar
+                    </button>
+
+                    <a href="consultar_estoque.php"
+                       class="acao-link acao-limpar">
+                        Limpar
+                    </a>
+
+                </form>
+
+                <?php if ($erro !== null): ?>
+
+                    <p class="mensagem-erro">
+                        <?= htmlspecialchars(
+                            $erro,
+                            ENT_QUOTES,
+                            "UTF-8"
+                        ) ?>
+                    </p>
+
+                <?php elseif (empty($estoque)): ?>
 
                     <p class="mensagem-vazia">
                         Nenhum produto encontrado no estoque.

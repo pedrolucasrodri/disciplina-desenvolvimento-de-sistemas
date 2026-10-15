@@ -241,8 +241,41 @@ button:active {
     margin-top: auto;
 }
 
+.consultas-card .consult-actions {
+    flex: 1;
+    align-content: space-evenly;
+    margin-top: 12px;
+}
+
 .consult-actions form {
     margin: 0;
+}
+
+/* RODAPÉ DO PAINEL PRINCIPAL */
+.app-container > footer {
+    margin-top: 24px;
+    padding: 14px 20px;
+
+    text-align: center;
+    color: var(--aero-text);
+
+    background: linear-gradient(
+        120deg,
+        rgba(238, 252, 255, 0.72),
+        rgba(171, 227, 255, 0.58)
+    );
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 66, 135, 0.12),
+        inset 0 1px 2px rgba(255, 255, 255, 0.85);
+}
+
+.app-container > footer p {
+    margin: 0;
+    font-size: 0.9rem;
 }
 
 /* ADAPTAÇÃO PARA TABLETS */
