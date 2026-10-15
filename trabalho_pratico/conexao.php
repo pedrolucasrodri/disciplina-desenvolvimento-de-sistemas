@@ -1,12 +1,13 @@
 <?php
 $host = "localhost";
 $dbname = "lojaVille";
+$port = '3406';
 $usuario = "root";
 $senha = "";
 
 try {
     $pdo= new PDO (
-        "mysql:host=$host;dbname=$dbname;charset=utf8",
+        "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8",
         $usuario,
         $senha
     );
