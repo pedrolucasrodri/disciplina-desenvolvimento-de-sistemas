@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap - Principais Componentes</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+        <div class="container">
+
+            <a class="navbar-brand" href="#">
+                Principais funcionalidades do Bootstrap
+            </a>
+        </div>
+    </nav>
+
+    <!-- Cabeçalho -->
+    <section class="bg-white shadow-sm py-5">
+        <div class="container text-center">
+
+            <h1 class="display-4 fw-bold text-primary">
+                Bootstrap
+            </h1>
+
+            <p class="lead">
+                Conheça os principais componentes e recursos do framework Bootstrap.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- Conteúdo -->
+    <main class="container my-5">
+
+        <!-- Introdução -->
+        <div class="card shadow-lg border-0 mb-4">
+            <div class="card-body">
+
+                <h2>O que é Bootstrap?</h2>
+
+                <p>
+                    O Bootstrap é um framework front-end que facilita a criação
+                    de interfaces modernas, responsivas e organizadas.
+                    Ele fornece componentes prontos que reduzem a necessidade
+                    de escrever CSS do zero.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- Container -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <h2 class="text-primary">📦 Container</h2>
+
+                <p>
+                    Centraliza o conteúdo da página e cria margens automáticas.
+                </p>
+
+                <hr>
+
+                <h5>Exemplo:</h5>
+
+                <div class="container border rounded p-3 bg-light">
+                    Conteúdo centralizado dentro de um Container.
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Grid -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <h2 class="text-primary">🧱 Grid (Sistema de Colunas)</h2>
+
+                <p>
+                    Divide a página em linhas e colunas responsivas.
+                </p>
+
+                <hr>
+
+                <h5>Exemplo:</h5>
+
+                <div class="row text-center">
+
+                    <div class="col-md-6 bg-primary text-white p-3">
+                        Coluna 1
+                    </div>
+
+                    <div class="col-md-6 bg-secondary text-white p-3">
+                        Coluna 2
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Navbar -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <h2 class="text-primary">🧭 Navbar</h2>
+
+                <p>
+                    Cria menus de navegação para sistemas e sites.
+                </p>
+
+                <hr>
+
+                <h5>Exemplo:</h5>
+
+                <nav class="navbar navbar-expand navbar-light bg-light border rounded">
+                    <div class="container-fluid">
+
+                        <span class="navbar-brand">
+                            Logo
+                        </span>
+
+                        <ul class="navbar-nav">
+
+                            <li class="nav-item">
+                                <span class="nav-link">Início</span>
+                            </li>
+
+                            <li class="nav-item">
+                                <span class="nav-link">Sobre</span>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+        <!-- Botões -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <h2 class="text-primary">🔘 Botões</h2>
+
+                <p>
+                    São utilizados para executar ações no sistema.
+                </p>
+
+                <hr>
+
+                <h5>Exemplo:</h5>
+
+                <button class="btn btn-primary">
+                    Salvar
+                </button>
+
+                <button class="btn btn-success">
+                    Confirmar
+                </button>
+
+                <button class="btn btn-danger">
+                    Excluir
+                </button>
+
+            </div>
+        </div>
+
+        <!-- Formulários -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <h2 class="text-primary">📝 Formulários</h2>
+
+                <p>
+                    Permitem receber informações dos usuários.
+                </p>
+
+                <hr>
+
+                <h5>Exemplo:</h5>
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Nome
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Digite seu nome">
+                </div>
+
+                <button class="btn btn-primary">
+                    Enviar
+                </button>
+
+            </div>
+        </div>
+
+        <!-- Card -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <h2 class="text-primary">🗂️ Card</h2>
+
+                <p>
+                    Organiza informações em blocos visuais.
+                </p>
+
+                <hr>
+
+                <h5>Exemplo:</h5>
+
+                <div class="card" style="width: 18rem;">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+                            Produto
+                        </h5>
+
+                        <p class="card-text">
+                            Exemplo de utilização de um Card Bootstrap.
+                        </p>
+
+                        <button class="btn btn-success">
+                            Comprar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Tabelas -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <h2 class="text-primary">📋 Tabelas</h2>
+
+                <p>
+                    Exibem informações organizadas em linhas e colunas.
+                </p>
+
+                <hr>
+
+                <h5>Exemplo:</h5>
+
+                <table class="table table-striped">
+
+                    <thead>
+
+                        <tr>
+                            <th>Produto</th>
+                            <th>Estoque</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Mouse</td>
+                            <td>10</td>
+                        </tr>
+
+                        <tr>
+                            <td>Teclado</td>
+                            <td>5</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+        <!-- Alertas -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <h2 class="text-primary">🚨 Alertas</h2>
+
+                <p>
+                    Mostram alert-success">
+                    Cadastro realizado com sucesso!
+                </div>
+
+                <div class="alert alert-warning">
+                    Atenção! Estoque baixo.
+                </div>
+
+                <div class="alert alert-danger">
+                    Erro ao salvar.
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <h2 class="text-primary">🪟 Modal</h2>
+
+                <p>
+                    Exibe uma janela sobre a página atual.
+                </p>
+
+                <hr>
+
+                <h5>Exemplo:</h5>
+
+                <button class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalExemplo">
+                    Abrir Modal
+                </button>
+
+            </div>
+        </div>
+
+        <!-- Flexbox -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <h2 class="text-primary">↔️ Flexbox</h2>
+
+                <p>
+                    Facilita o alinhamento horizontal e vertical dos elementos.
+                </p>
+
+                <hr>
+
+                <h5>Exemplo:</h5>
+
+                <div class="d-flex justify-content-between border p-3 rounded">
+
+                    <span>Título</span>
+
+                    <button class="btn btn-primary">
+                        Ação
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Cores -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <h2 class="text-primary">🎨 Cores</h2>
+
+                <p>
+                    Permitem estilizar rapidamente fundos, textos e botões.
+                </p>
+
+                <hr>
+
+                <h5>Exemplo:</h5>
+
+                <div class="p-3 bg-primary text-white mb-2 rounded">
+                    Primary
+                </div>
+
+                <div class="p-3 bg-success text-white mb-2 rounded">
+                    Success
+                </div>
+
+                <div class="p-3 bg-danger text-white mb-2 rounded">
+                    Danger
+                </div>
+
+                <div class="p-3 bg-warning rounded">
+                    Warning
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalExemplo">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        Exemplo de Modal
+                    </h5>
+
+                    <button class="btn-close"
+                            data-bs-dismiss="modal">
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+                    Esta é uma janela Modal criada com Bootstrap.
+                </div>
+
+                <div class="modal-footer">
+
+                    <button class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Fechar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="bg-dark text-white text-center py-4">
+
+        <p class="mb-0">
+            © 2024 Meu Site. Todos os direitos reservados.
+        </p>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
